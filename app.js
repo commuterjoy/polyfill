@@ -50,6 +50,7 @@ app.get('/', function (req, res) {
     // Cachable output - private? 
     res.setHeader('X-Polyfill-Family', browser);
     res.setHeader('Vary', 'User-Agent');
+    res.setHeader('Cache-Control', 'private, max-age=3600');
     res.send(200, pf);
 });
 
