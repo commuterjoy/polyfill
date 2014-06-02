@@ -46,7 +46,7 @@
 		"fill": "Window.prototype.devicePixelRatio.iossafari6 Element.prototype.matches.webkit Element.prototype.mutation"
 	}],
 	"Chrome": [{
-		"fill": "Element.prototype.matches.webkit Element.prototype.mutation.blink"
+		"fill": "Element.prototype.matches.webkit Element.prototype.mutation.blink Date.yesterday"
 	}],
 	"Internet Explorer": [{
 		"min": "6",
