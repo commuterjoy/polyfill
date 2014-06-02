@@ -1,1 +1,16 @@
-=polyfill
+html
+  head
+    script(type="application/javascript")!= polyfill
+  body
+
+    p
+      | When browsing in Chrome, you should see a big red number 
+      | '86400000' below. 
+    p
+      | This is because Chrome has been configured to polyfill 'Date.yesterday' (a 
+      | made up es6 function!) in agent.js.json. The polyfill is embedded 
+      | in the head of this document by the express middleware.
+
+    // execute some javascript
+    h1(style='color:red')
+      script document.write(Date.now() - Date.yesterday())

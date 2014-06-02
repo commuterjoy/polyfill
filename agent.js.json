@@ -68,7 +68,7 @@
 	}],
 	"Firefox": [{
 		"only": "3.6",
-		"fill": "Object.create Object.defineProperty Object.defineProperties Object.getPrototypeOf Object.keys Object.getOwnPropertyNames Array.isArray Function.prototype.bind"
+		"fill": "Window.prototype.Event Window.prototype.CustomEvent Window.prototype.matchMedia Window.prototype.Event.firefox5"
 	}, {
 		"min": "3.6",
 		"max": "5",
