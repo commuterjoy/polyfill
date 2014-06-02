@@ -9,8 +9,7 @@ var polyfillDirectory = JSON.parse(fs.readFileSync('agent.js.json', { encoding: 
 var userAgentPatterns = JSON.parse(fs.readFileSync('agent.json', { encoding: 'utf8' }));
 var polyfills = {};
 
-// TODO - load polyfills in to memory
-
+// Loads polyfills in to memory
 var loadPolyfills = function () {
     var source = __dirname + '/minified/'
     fs.readdirSync(source).forEach(function (filename) {
@@ -28,18 +27,16 @@ var findUserAgent = function (ua) {
     });
 };
 
+// FIXME ignore brower version number for now 
 var getPolyfillsFor = function (browserFamily) {
-    var fills = polyfillDirectory[browserFamily][0].fill; // FIXME ignore brower version number for now 
-    console.log(fills);
+    var fills = (polyfillDirectory.hasOwnProperty(browserFamily)) ?
+            polyfillDirectory[browserFamily][0].fill : ''; 
     return fills.split(' ').map(function (fill) {
         return polyfills[fill];
-    });
+    }).join("\n");
 };
 
-//
 loadPolyfills(); 
-
-//console.log('user is using ' + browser, pf);
 
 app.get('/', function (req, res) {
 
@@ -47,10 +44,12 @@ app.get('/', function (req, res) {
     // entry point to your application
     var ua = req.headers['user-agent'];
 
-    var browser = findUserAgent('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.131 Safari/537.36');
+    var browser = findUserAgent(ua);
     var pf = getPolyfillsFor(browser);
-
-    // TODO - vary on x-browser-family
+   
+    // Cachable output - private? 
+    res.setHeader('X-Polyfill-Family', browser);
+    res.setHeader('Vary', 'User-Agent');
     res.send(200, pf);
 });
 
