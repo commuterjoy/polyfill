@@ -1,6 +1,6 @@
 # Polyfill.io as Express middleware
 
-This is a fork of the [polyfill.io](https://github.com/jonathantneal/polyfill) project for using within Express.
+This is a fork of the [polyfill.io](https://github.com/jonathantneal/polyfill) project for use within [Express](http://expressjs.com/).
 
 ```
 git clone https://github.com/commuterjoy/polyfill.git && cd ./polyfill
@@ -9,13 +9,13 @@ grunt
 export PORT=6000; node app.js
 ```
 
-You should not be able to hit [localhost:6000](http://localhost:6000) and see a polyfill,
+You should now be able to open [localhost:6000](http://localhost:6000) and see a polyfill for your browser, Eg.
 
 ```
 curl -A 'Gecko/20100101 Firefox/31.0' localhost:6000
 ```
 
-The middleware added the polyfill (String) to the response object, meaning you can pass it to your templates,
+The middleware adds the polyfill (String) to the response object meaning you can pass it to your templates (perhaps for embedding inside your &lt;head&gt; tags, before you load your JS code, Eg.
 
 ```
 app.use(polyfill);
@@ -24,7 +24,7 @@ app.get('/', function (req, res) {
 });
 ```
 
-Or you can define a [Router](http://expressjs.com/4x/api.html#router) and insert the polyfill in to your JS code,
+Or, you can define a [Router](http://expressjs.com/4x/api.html#router) and insert the polyfill directly in to your JS code,
 
 ```
 var router = express.Router();
@@ -33,6 +33,8 @@ app.get('/path/to/bootstrap.js', function (req, res) {
     res.render('path/to/minified/js/file', { polyfill: res.polyfill });
 });
 ```
+
+Or you can use it as described below ...
 
 _Original README follows..._
 
