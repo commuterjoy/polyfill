@@ -1,3 +1,41 @@
+# Polyfill.io as Express middleware
+
+This is a fork of the [polyfill.io](https://github.com/jonathantneal/polyfill) project for using within Express.
+
+```
+git clone https://github.com/commuterjoy/polyfill.git && cd ./polyfill
+npm install
+grunt
+export PORT=6000; node app.js
+```
+
+You should not be able to hit [localhost:6000](http://localhost:6000) and see a polyfill,
+
+```
+curl -A 'Gecko/20100101 Firefox/31.0' localhost:6000
+```
+
+The middleware added the polyfill (String) to the response object, meaning you can pass it to your templates,
+
+```
+app.use(polyfill);
+app.get('/', function (req, res) {
+    res.render('example', { polyfill: res.polyfill });
+});
+```
+
+Or you can define a [Router](http://expressjs.com/4x/api.html#router) and insert the polyfill in to your JS code,
+
+```
+var router = express.Router();
+app.use(polyfill, router);
+app.get('/path/to/bootstrap.js', function (req, res) {
+    res.render('path/to/minified/js/file', { polyfill: res.polyfill });
+});
+```
+
+_Original README follows..._
+
 # polyfill
 
 **polyfill** makes web development less frustrating by selectively polyfilling just what the browser needs. Use it on your own site, or as a service.
