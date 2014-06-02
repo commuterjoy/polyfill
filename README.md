@@ -9,13 +9,13 @@ grunt
 export PORT=6000; node app.js
 ```
 
-You should not be able to hit [localhost:6000](http://localhost:6000) and see a polyfill,
+You should now be able to open [localhost:6000](http://localhost:6000) and see a polyfill,
 
 ```
 curl -A 'Gecko/20100101 Firefox/31.0' localhost:6000
 ```
 
-The middleware added the polyfill (String) to the response object, meaning you can pass it to your templates,
+The middleware adds the polyfill (String) to the response object, meaning you can pass it to your templates,
 
 ```
 app.use(polyfill);
@@ -33,6 +33,8 @@ app.get('/path/to/bootstrap.js', function (req, res) {
     res.render('path/to/minified/js/file', { polyfill: res.polyfill });
 });
 ```
+
+Or you can use it as described below ...
 
 _Original README follows..._
 
